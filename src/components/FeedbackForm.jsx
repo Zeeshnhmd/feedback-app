@@ -25,3 +25,7 @@ const FeedbackForm = () => {
 };
 
 export default FeedbackForm;
+
+/**
+ * * created a feedbackform component in which have a input field which is being updated when something in typed, to updated the input field used a useState hook
+ */
