@@ -5,7 +5,9 @@ const RatingSelect = ({ select }) => {
 	const handleChange = (e) => {
 		/**
 		 * * this is a string by default but we want it to be a number that is why we are giving a (+) sign before the (e)
+		 *  * here (currentTarget.value) will target the current value {for example if we have selected 1 or 2 then it will select that value}
 		 */
+
 		setSelected(+e.currentTarget.value);
 		select(+e.currentTarget.value);
 	};
