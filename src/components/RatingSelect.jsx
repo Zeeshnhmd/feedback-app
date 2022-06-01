@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import FeedbackContext from '../context/FeedbackContext';
 
 const RatingSelect = ({ select }) => {
+	const { feedbackEdit } = useContext(FeedbackContext);
 	const [selected, setSelected] = useState(10);
+
+	useEffect(() => {
+		if (feedbackEdit.edit === true) {
+			setSelected(feedbackEdit.item.rating);
+		}
+	}, [feedbackEdit]);
+
 	const handleChange = (e) => {
 		/**
 		 * * this is a string by default but we want it to be a number that is why we are giving a (+) sign before the (e)

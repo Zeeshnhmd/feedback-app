@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Card from './Card';
 import RatingSelect from './RatingSelect';
 import Button from './shared/Button';
+import FeedbackContext from '../context/FeedbackContext';
 
-const FeedbackForm = ({ handleAdd }) => {
+const FeedbackForm = () => {
+	const { addFeedback, feedbackEdit, updateFeedback } =
+		useContext(FeedbackContext);
 	const [text, setText] = useState('');
 	const [rating, setRating] = useState(10);
 	const [btnDisabled, setBtnDisabled] = useState(true);
 	const [message, setMessage] = useState('');
+
+	useEffect(() => {
+		if (feedbackEdit.edit === true) {
+			setBtnDisabled(false);
+			setText(feedbackEdit.item.text);
+			setRating(feedbackEdit.item.rating);
+		}
+	}, [feedbackEdit]);
 
 	/**
 	 * * - Here in the "if" candition we are saying that if the text input field is empty then disable the button and dont show any message.
@@ -36,7 +47,12 @@ const FeedbackForm = ({ handleAdd }) => {
 				text,
 				rating,
 			};
-			handleAdd(newFeedback);
+
+			if (feedbackEdit.edit === true) {
+				updateFeedback(feedbackEdit.item.id, newFeedback);
+			} else {
+				addFeedback(newFeedback);
+			}
 			setText('');
 		}
 	};
